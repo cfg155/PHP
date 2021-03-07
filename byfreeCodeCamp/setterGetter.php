@@ -10,8 +10,9 @@
     <?php
         class MyFavoriteFood{
             // bisa ada access modifier kyk java public, protected, ama private
-            public $publicFood;
-            private $privateFood;
+            public $publicFood;         // bisa di akses di mana aja
+            private $privateFood;       // cuma bisa di akses di class itu doang
+            protected $protectedFood;   // bisa di akses di class itu doang + extended class
         
             function __construct($nPublicFood,$nPrivateFood)
             {
@@ -27,18 +28,45 @@
             function setPrivateFood($nValue){
                 $this->privateFood = $nValue;
             }
+
+            // protected 
+            protected function mainDish(){
+                echo  "THE MAIN DISH IS MIE AYAM";
+            }
         }
 
-        $myFavoriteFood = new MyFavoriteFood("sushi","nasi");
+        // Inheritenace
+        class IndonesianFood extends MyFavoriteFood{
+            function getProtectedFood(){
+                return $this->protectedFood;
+            }
+
+            function setProtectedFood($nValue){
+                $this->protectedFood = $nValue;
+            }
+        }
+
+        $myFavoriteFood = new MyFavoriteFood("sushi","bulgogi");
 
         // set data public
         echo $myFavoriteFood->publicFood = "martabak";
 
         // set data private
-        $myFavoriteFood->setPrivateFood("Ayam Goreng");
+        $myFavoriteFood->setPrivateFood("KFC");
 
         // get data public
         echo $myFavoriteFood->getPrivateFood();
+
+        // Inheritance obj
+        $indonesianFood = new IndonesianFood("sate padang","soto");
+
+        // Access data inherited
+        echo $indonesianFood->publicFood;
+        echo $indonesianFood->getPrivateFood();
+
+        // set protected value
+        $indonesianFood->setProtectedFood('Krabby Petty');
+        echo $indonesianFood->getProtectedFood();
 
     ?>
 </body>
